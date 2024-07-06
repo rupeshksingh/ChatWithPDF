@@ -6,7 +6,6 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores.faiss import FAISS
 from langchain.chains import RetrievalQA
 from langchain.callbacks import StdOutCallbackHandler
-from api_key import api_key
 
 # Streamlit interface
 st.title("PDF Chat with RAG Model")
