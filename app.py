@@ -12,15 +12,21 @@ st.title("PDF Chat with RAG Model")
 st.write("Upload a PDF and ask questions about its content.")
 
 # File upload
-uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
-
-# Process the PDF if uploaded
 if uploaded_file:
-    with open("uploaded_file.pdf", "wb") as f:
+    file_extension = uploaded_file.name.split('.')[-1].lower()
+    
+    with open(f"uploaded_file.{file_extension}", "wb") as f:
         f.write(uploaded_file.getbuffer())
     
-    # Load and process the PDF
-    loader = PyPDFLoader("uploaded_file.pdf")
+    if file_extension == "pdf":
+        loader = PyPDFLoader(f"uploaded_file.{file_extension}")
+    elif file_extension == "docx":
+        loader = Docx2txtLoader(f"uploaded_file.{file_extension}")
+    elif file_extension == "txt":
+        loader = TextLoader(f"uploaded_file.{file_extension}")
+    else:
+        st.error("Unsupported file type")
+
     documents = loader.load_and_split()
     
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=64)
