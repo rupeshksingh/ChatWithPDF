@@ -12,6 +12,9 @@ st.title("PDF Chat with RAG Model")
 st.write("Upload a PDF and ask questions about its content.")
 
 # File upload
+uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt"])
+
+# File upload
 if uploaded_file:
     file_extension = uploaded_file.name.split('.')[-1].lower()
     
